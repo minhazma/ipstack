@@ -7,9 +7,9 @@ environment:
   sdk: '>=2.7.0 <3.0.0'
   flutter: '>=1.17.0'
 dependencies: 
-  pedantic: ^1.9.2
-  meta: ^1.2.4
-  http: ^0.12.2
+  pedantic: ^1.11.1
+  meta: ^1.7.0
+  http: ^0.13.4
   flutter: 
     sdk: flutter
 dev_dependencies: 
