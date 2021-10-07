@@ -12,17 +12,13 @@ class IpStack {
   final String apiKey;
   final String baseUrl;
 
-  IpStack(String apiKey, {bool useHttps = false})
-      : this.ofBaseUrl(apiKey,
-            baseUrl: "http${useHttps ? 's' : ''}://api.ipstack.com");
+  IpStack(String apiKey, {bool useHttps = false}) : this.ofBaseUrl(apiKey, baseUrl: "http${useHttps ? 's' : ''}://api.ipstack.com");
 
-  IpStack.ofBaseUrl(this.apiKey, {@required this.baseUrl})
-      : assert(apiKey != null, "You must provide an api key");
+  IpStack.ofBaseUrl(this.apiKey, {@required this.baseUrl}) : assert(apiKey != null, "You must provide an api key");
 
   Future<IpStackResponse> ip(String ipAddress) async {
     assert(ipAddress != null, "Ip must not be null");
-    final resp =
-        await http.get("$baseUrl/$ipAddress?access_key=$apiKey&format=1");
+    final resp = await http.get("$baseUrl/$ipAddress?access_key=$apiKey&format=1");
     return fromResponse(resp);
   }
 
@@ -36,7 +32,10 @@ class IpStack {
       final jsonBody = json.decode(response.body);
       return IpStackResponse.fromJson(jsonBody);
     } else {
-      throw "Invalid response from ipstack: status=${response.statusCode}, body=${response.body}";
+      var errorResp = {"status_code": response.statusCode};
+      final jsonBody = json.decode(response.body);
+      errorResp["body"] = jsonBody;
+      return IpStackResponse.fromJson(errorResp);
     }
   }
 }
