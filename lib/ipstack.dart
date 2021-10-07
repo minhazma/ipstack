@@ -18,12 +18,12 @@ class IpStack {
 
   Future<IpStackResponse> ip(String ipAddress) async {
     assert(ipAddress != null, "Ip must not be null");
-    final resp = await http.get("$baseUrl/$ipAddress?access_key=$apiKey&format=1");
+    final resp = await http.get(Uri.parse("$baseUrl/$ipAddress?access_key=$apiKey&format=1"));
     return fromResponse(resp);
   }
 
   Future<IpStackResponse> requester() async {
-    final resp = await http.get("$baseUrl/check?access_key=$apiKey&format=1");
+    final resp = await http.get(Uri.parse("$baseUrl/check?access_key=$apiKey&format=1"));
     return fromResponse(resp);
   }
 
